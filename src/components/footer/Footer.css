@@ -1,0 +1,24 @@
+/* Footer.css */
+.footer {
+    padding: 1rem 0;
+    margin-top: auto;
+  }
+  
+  .footer-link {
+    text-decoration: none;
+    color: rgb(167, 167, 167);
+  }
+  
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+  
+  .separator {
+    margin: 0 0.5rem;
+    color: #6c757d;
+  }
+  
+  .text-md-right {
+    text-align: right;
+  }
+  

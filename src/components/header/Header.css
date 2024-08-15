@@ -1,0 +1,24 @@
+.nav-link-custom {
+    color: #000000; 
+    font-weight: 600;
+    text-decoration: none; 
+    padding: 0.5rem 1rem; 
+    transition: background-color 0.3s; 
+    background: none;
+    border: none;
+  }
+
+.logo {
+  color:  rgb(44, 100, 109);
+  margin-inline:10px;
+}
+
+#user-dropdown {
+  background: None;
+  border: None;
+  margin: None
+}
+
+.dropdown-toggle::after {
+  display: none !important; 
+}
