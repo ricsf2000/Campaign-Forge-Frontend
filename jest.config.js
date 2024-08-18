@@ -1,9 +1,9 @@
 module.exports = {
-    transform: {
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    transformIgnorePatterns: [
-      "/node_modules/(?!axios)/"
-    ],
-  };
-  
+  transformIgnorePatterns: [
+    "/node_modules/(?!axios)/" 
+  ],
+  transform: {
+    "^.+\\.js$": "babel-jest",
+    "^.+\\.jsx$": "babel-jest", 
+  },
+};
