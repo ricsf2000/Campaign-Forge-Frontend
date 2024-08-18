@@ -1,21 +1,15 @@
-import React, { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+import React from "react";
+import { PageLoader } from "./page-loader";
 
-const ProtectedRoutes = () => {
-    const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+export const ProtectedRoutes = ({ component }) => {
+  const Component = withAuthenticationRequired(component, {
+    onRedirecting: () => (
+      <div className="page-layout">
+        <PageLoader />
+      </div>
+    ),
+  });
 
-    useEffect(() => {
-        if (!isLoading && !isAuthenticated) {
-            loginWithRedirect();
-        }
-    }, [isLoading, isAuthenticated, loginWithRedirect]);
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    return isAuthenticated ? <Outlet /> : null;
+  return <Component />;
 };
-
-export default ProtectedRoutes;

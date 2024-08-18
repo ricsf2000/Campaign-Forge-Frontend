@@ -14,4 +14,13 @@ body{
   min-height: 100vh;
   color: white;
   background-color: rgb(10, 34, 39);
+  font-size:large;
+}
+
+.campaign-title {
+  border-bottom: 2px solid white;
+  padding: 10px;
+  display: flex;
+  margin-bottom: 20px;
+
 }

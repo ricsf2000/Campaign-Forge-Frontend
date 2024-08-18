@@ -1,0 +1,44 @@
+.campaigns-card {
+    color:#000000 !important;
+    background-color: rgb(201, 201, 201) !important;
+    width: 95% !important;
+    border-radius: 3px !important;
+    padding-inline: 20px;
+    padding-top: 10px;
+    border:none !important;
+}
+
+.kebab-menu {
+    font-size: 804px;
+    padding: 0; 
+    display: flex;
+    flex-direction: column;
+    width: 40px; 
+    height: 40px; 
+    border: none;
+    background-color: transparent;
+}
+
+.kebab-menu:focus {
+    box-shadow: none;
+    border: none;
+}
+
+.campaign-link {
+    color: inherit !important; 
+    text-decoration: none; 
+}
+
+.campaign-link:hover {
+    color: inherit !important;
+    text-decoration: none;
+}
+
+
+.new-campaign-btn {
+    width:150px;
+    margin: 10px;
+    font-size:large !important;
+    margin-left: auto;
+    border-radius: 3px !important;
+}

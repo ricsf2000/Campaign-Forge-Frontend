@@ -10,7 +10,7 @@ import LogoutButton from '../buttons/LogoutButton';
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Image from "react-bootstrap/Image";
-import { FaUserCircle } from "react-icons/fa"; // Import a default user icon
+import { FaUserCircle } from "react-icons/fa";
 
 const Header = () => {
     const { isAuthenticated, user, isLoading } = useAuth0();
@@ -51,14 +51,14 @@ const Header = () => {
                     
                 </Navbar.Collapse>
                 {isAuthenticated ? (
-                    <div className="d-flex align-items-center ms-auto" ref={dropdownRef}>
+                    <div className="user-profile d-flex align-items-center ms-auto" ref={dropdownRef}>
                         <DropdownButton
                             id="user-dropdown"
                             title={
                                 user.picture ? (
                                     <Image src={user.picture} roundedCircle height="34" />
                                 ) : (
-                                    <FaUserCircle size={34} /> // Default user icon
+                                    <FaUserCircle size={34} />
                                 )
                             }
                             align="end"
@@ -79,7 +79,7 @@ const Header = () => {
                         </DropdownButton>
                     </div>
                 ) : (
-                    <LoginButton/>
+                    <LoginButton />
                 )}
             </Container>
         </Navbar>

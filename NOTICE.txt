@@ -1,0 +1,4 @@
+This project includes code from https://github.com/auth0-developer-hub/spa_react_javascript_hello-world/tree/basic-authentication-with-api-integration, licensed under the Apache License 2.0. 
+Modifications have been made to the original code.
+
+You can find a copy of the Apache License at http://www.apache.org/licenses/LICENSE-2.0

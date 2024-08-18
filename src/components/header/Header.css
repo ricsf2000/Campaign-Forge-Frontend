@@ -22,3 +22,15 @@
 .dropdown-toggle::after {
   display: none !important; 
 }
+
+.user-profile {
+  position: absolute;
+  right: 2%;
+  top: 6px;
+}
+
+.login-position {
+  position: absolute;
+  right: 2%;
+  top: 14px;
+}

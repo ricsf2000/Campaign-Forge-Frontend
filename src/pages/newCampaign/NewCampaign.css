@@ -1,0 +1,14 @@
+.formField {
+    background-color: rgba(0, 0, 0, 0.434) !important;
+    color: white !important;
+    border-radius: 3px !important;
+}
+
+#formCampaignDescription {
+    font-size:large ;
+}
+
+#formCampaignName {
+    font-size: larger;
+}
+

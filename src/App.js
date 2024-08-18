@@ -1,30 +1,42 @@
 import './App.css';
-import api from './api/axiosConfig';
 import Layout from './components/Layout';
-import {Routes, Route} from 'react-router-dom';
-import Home from './components/home/Home';
+import { Routes, Route, Outlet } from 'react-router-dom';
+import Home from './pages/home/Home';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import Campaigns from './components/campaigns/Campaigns';
-import ProtectedRoutes from './utils/ProtectedRoutes';
-import CampaignView from './components/campaignView/CampaignView'
-
+import Campaigns from './pages/campaigns/Campaigns';
+import { NotFoundPage } from "./pages/not-found-page";
+import { ProtectedRoutes } from './utils/ProtectedRoutes';
+import { CallbackPage } from './pages/callback-page';
+import CampaignView from './pages/campaignView/CampaignView';
+import NewCampaign from './pages/newCampaign/NewCampaign';
 
 function App() {
   return (
     <div className="App">
-        <Header/>
-        <Routes>
-          <Route path="/" element={<Layout/>}>
-            <Route index element={<Home/>} ></Route>
-            <Route element={<ProtectedRoutes/>}>
-              <Route path='/campaigns' element={<Campaigns/>}/>
-              <Route path="/campaigns/:campaignId" element={<CampaignView/>} />
-            </Route>
+      <Routes>
+        <Route element={<LayoutWithHeaderAndFooter />}>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/campaigns" element={<ProtectedRoutes component={Campaigns} />} />
+            <Route path="/campaigns/:campaignId" element={<ProtectedRoutes component={CampaignView} />} />
+            <Route path="/campaigns/new" element={<ProtectedRoutes component={NewCampaign}/>}/>
           </Route>
-        </Routes>
-        <Footer/>
+        </Route>
+        <Route path="/callback" element={<CallbackPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </div>
+  );
+}
+
+function LayoutWithHeaderAndFooter() {
+  return (
+    <>
+      <Header />
+      <Outlet />
+      <Footer />
+    </>
   );
 }
 

@@ -1,0 +1,12 @@
+.noteslist {
+    background-color: rgb(201, 201, 201) !important;
+    color: rgb(0, 0, 0) !important;
+    border: none !important;
+}
+
+.noteslist.active,
+.noteslist:focus {
+    background-color: rgb(126, 126, 126) !important;
+    border-color: white !important;
+    color: rgb(0, 0, 0) !important;
+}
