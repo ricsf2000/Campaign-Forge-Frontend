@@ -20,7 +20,7 @@ const NewCampaign = ({ editMode = false, existingCampaign = {} }) => {
             const accessToken = await getAccessTokenSilently();
             if (editMode) {
                 const campaignId = existingCampaign.id.toString();
-                const updatedCampaign = await updateCampaign(campaignId, campaignData, accessToken);
+                await updateCampaign(campaignId, campaignData, accessToken);
                 setName(campaignData.name)
                 setDescription(campaignData.description)
                 setIsEditable(false);
