@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: '20.x'
 
+      - name: Increase file descriptor limit
+        run: ulimit -n 65536
+
       - name: npm install, build, and test
         run: |
           npm install
