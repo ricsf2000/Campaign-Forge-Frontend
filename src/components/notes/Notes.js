@@ -104,22 +104,17 @@ const Notes = ({ campaignId }) => {
                     </div>
                     <Editor
                         apiKey={process.env.REACT_APP_TINYMCE_KEY}
-                        value={content}
                         init={{
-                            height: 500,
-                            menubar: false,
                             skin: 'oxide-dark',
                             content_css: 'dark',
-                            plugins: [
-                                'advlist autolink lists link image charmap print preview anchor',
-                                'searchreplace visualblocks code fullscreen',
-                                'insertdatetime media table paste code help wordcount'
+                            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+                            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                            tinycomments_mode: 'embedded',
+                            tinycomments_author: 'Author name',
+                            mergetags_list: [
+                            { value: 'First.Name', title: 'First Name' },
+                            { value: 'Email', title: 'Email' },
                             ],
-                            toolbar: `
-                                undo redo | formatselect | bold italic backcolor |
-                                alignleft aligncenter alignright alignjustify |
-                                bullist numlist outdent indent | removeformat | help
-                            `
                         }}
                         onEditorChange={setContent}
                     />

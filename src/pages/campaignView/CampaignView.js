@@ -59,8 +59,6 @@ const CampaignView = () => {
         return <p>Loading...</p>;
     }
 
-    const mapImage = 'https://images.squarespace-cdn.com/content/v1/5d3f5ab4e0b0f80001519db3/1590162642372-7PP1W2BICQ8RT0C1GQWL/EAD6EA51-4E79-43CF-8695-5D720D554624.jpeg';
-
     return (
         <Container fluid className="campaignView-container">
             <div className="tabs-container d-flex align-items-center mb-3 pt-2 w-100">
@@ -84,7 +82,7 @@ const CampaignView = () => {
                 )}
                 {isMapsLoaded && (
                     <div style={{ display: activeTab === "maps" ? 'block' : 'none' }}>
-                        <Maps mapImage={mapImage} />
+                        <Maps campaignId={campaignId}/>
                     </div>
                 )}
                 {isNotesLoaded && (

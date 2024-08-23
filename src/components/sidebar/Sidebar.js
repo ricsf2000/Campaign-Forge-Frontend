@@ -1,15 +1,39 @@
 import React, { useState } from 'react';
-import {Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
-const Sidebar = ({ selectedNode, onSaveNode }) => {
+const Sidebar = ({ selectedNode, onSaveNode, onDeleteNode }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedNode, setEditedNode] = useState(selectedNode);
 
-    const handleChange = (e) => {
+    const handleChange = (e, index) => {
         const { name, value } = e.target;
+
+        if (name === 'npcs') {
+            const newNpcs = [...editedNode.npcs];
+            newNpcs[index] = value;
+            setEditedNode(prevNode => ({
+                ...prevNode,
+                npcs: newNpcs,
+            }));
+        } else {
+            setEditedNode(prevNode => ({
+                ...prevNode,
+                [name]: value,
+            }));
+        }
+    };
+
+    const handleAddNpc = () => {
         setEditedNode(prevNode => ({
             ...prevNode,
-            [name]: value,
+            npcs: [...prevNode.npcs, ""],
+        }));
+    };
+
+    const handleRemoveNpc = (index) => {
+        setEditedNode(prevNode => ({
+            ...prevNode,
+            npcs: prevNode.npcs.filter((_, i) => i !== index),
         }));
     };
 
@@ -39,8 +63,9 @@ const Sidebar = ({ selectedNode, onSaveNode }) => {
                 <div>
                     {isEditing ? (
                         <>
-                            <Button variant='secondary' className="mb-3 me-3"  onClick={handleSave}>Save</Button>
-                            <Button variant='secondary' className="mb-3"  onClick={() => setIsEditing(false)}>Cancel</Button>
+                            <Button variant='secondary' className="mb-3 me-3" onClick={handleSave}>Save</Button>
+                            <Button variant='secondary' className="mb-3 me-3" onClick={() => setIsEditing(false)}>Cancel</Button>
+                            <Button variant='danger' className="mb-3" onClick={onDeleteNode}>Delete Node</Button> {/* Add delete button here */}
                             <label>
                                 Title:
                                 <input
@@ -60,12 +85,19 @@ const Sidebar = ({ selectedNode, onSaveNode }) => {
                             </label>
                             <label>
                                 NPCs:
-                                <input
-                                    type="text"
-                                    name="npcs"
-                                    value={editedNode.npcs.join(", ") || ""}
-                                    onChange={handleChange}
-                                />
+                                {editedNode.npcs.map((npc, index) => (
+                                    <div key={index} style={{ display: 'flex', marginBottom: '5px' }}>
+                                        <input
+                                            type="text"
+                                            name="npcs"
+                                            value={npc || ""}
+                                            onChange={(e) => handleChange(e, index)}
+                                            style={{ flexGrow: 1 }}
+                                        />
+                                        <Button variant="danger" onClick={() => handleRemoveNpc(index)} style={{ marginLeft: '5px' }}>X</Button>
+                                    </div>
+                                ))}
+                                <Button variant="primary" onClick={handleAddNpc}>Add NPC</Button>
                             </label>
                             <label>
                                 Notable Characteristics:
@@ -87,9 +119,15 @@ const Sidebar = ({ selectedNode, onSaveNode }) => {
                     ) : (
                         <>
                             <Button variant='secondary' className="mb-3" onClick={() => setIsEditing(true)}>Edit</Button>
+                            <Button variant='danger' className="mb-3 ms-2" onClick={onDeleteNode}>Delete Node</Button> 
                             <p><strong>Title:</strong> {selectedNode.title}</p>
                             <p><strong>Description:</strong> {selectedNode.description}</p>
-                            <p><strong>NPCs:</strong> {selectedNode.npcs.join(", ")}</p>
+                            <p><strong>NPCs:</strong></p>
+                                <ul>
+                                    {selectedNode.npcs.map((npc, index) => (
+                                        <li key={index}>{npc}</li>
+                                    ))}
+                                </ul>
                             <p><strong>Notable Characteristics:</strong> {selectedNode.notableCharacteristics}</p>
                             <p><strong>Quest Hooks:</strong> {selectedNode.questHooks}</p>
                         </>
