@@ -39,16 +39,16 @@ const Maps = ({ campaignId }) => {
         fetchMap();
     }, [campaignId, getAccessTokenSilently]);
 
-    const handleMapClick = (event) => {
+    const handleMapClick = async (event) => {
         event.preventDefault();
-
-        if (event.button === 2) {
+    
+        if (event.button === 2) { 
             const imgElement = event.currentTarget.querySelector('img');
             const { offsetX, offsetY } = event.nativeEvent;
-
+    
             const xPercent = (offsetX / imgElement.offsetWidth) * 100;
             const yPercent = (offsetY / imgElement.offsetHeight) * 100;
-
+    
             const newNode = {
                 x: xPercent,
                 y: yPercent,
@@ -58,10 +58,13 @@ const Maps = ({ campaignId }) => {
                 notableCharacteristics: "Notable characteristics of the location",
                 questHooks: "Quest hooks related to this location"
             };
-            setNodes([...nodes, newNode]);
-            setSelectedNode(newNode);
+    
+            const savedNode = await handleSaveNode(newNode);
+            setSelectedNode(savedNode);
         }
     };
+    
+    
 
     const handleNodeClick = (node) => {
         setSelectedNode(node);
@@ -69,30 +72,38 @@ const Maps = ({ campaignId }) => {
 
     const handleSaveNode = async (editedNode) => {
         const accessToken = await getAccessTokenSilently();
-
+    
         if (editedNode.id) {
             await updateNodeInMap(mapId, editedNode.id, editedNode, accessToken);
+            
             setNodes(nodes.map(node => node.id === editedNode.id ? editedNode : node));
         } else {
             const response = await addNodeToMap(mapId, editedNode, accessToken);
             if (response.data) {
                 const newNode = { ...editedNode, id: response.data.nodes[response.data.nodes.length - 1].id };
+                
                 setNodes([...nodes, newNode]);
-                setSelectedNode(newNode);
+                setSelectedNode(newNode); 
+                return newNode;
             }
         }
+        
+        setSelectedNode(editedNode);
     };
+    
 
-    const handleDeleteNode = async () => {
-        console.log("Delete button clicked");
-        console.log("Selected Node:", selectedNode);
-        if (selectedNode && selectedNode.id) {
+    const handleDeleteNode = async (editedNode) => {
+        console.log(editedNode)
+        if (editedNode && editedNode.id) {
             try {
                 const accessToken = await getAccessTokenSilently();
-                console.log("Deleting node with ID:", selectedNode.id);
-                await deleteNodeFromMap(mapId, selectedNode.id, accessToken);
-                setNodes(nodes.filter(node => node.id !== selectedNode.id));
-                setSelectedNode(null);
+    
+                await deleteNodeFromMap(mapId, editedNode.id, accessToken);
+                setNodes(nodes.filter(node => node.id !== editedNode.id));
+                if (selectedNode?.id === editedNode.id) {
+                    setSelectedNode(null);
+                }
+    
                 console.log("Node deleted successfully");
             } catch (error) {
                 console.error("Failed to delete node:", error);
@@ -101,6 +112,7 @@ const Maps = ({ campaignId }) => {
             console.log("No node selected or node ID is missing");
         }
     };
+    
 
     const handleEditURL = () => {
         setTempURL(mapImage);

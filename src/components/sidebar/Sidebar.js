@@ -42,6 +42,11 @@ const Sidebar = ({ selectedNode, onSaveNode, onDeleteNode }) => {
         onSaveNode(editedNode);
     };
 
+    const handleDelete = () => {
+        setIsEditing(false);
+        onDeleteNode(editedNode)
+    }
+
     React.useEffect(() => {
         setEditedNode(selectedNode);
         setIsEditing(false);
@@ -65,7 +70,7 @@ const Sidebar = ({ selectedNode, onSaveNode, onDeleteNode }) => {
                         <>
                             <Button variant='secondary' className="mb-3 me-3" onClick={handleSave}>Save</Button>
                             <Button variant='secondary' className="mb-3 me-3" onClick={() => setIsEditing(false)}>Cancel</Button>
-                            <Button variant='danger' className="mb-3" onClick={onDeleteNode}>Delete Node</Button>
+                            <Button variant='danger' className="mb-3" onClick={handleDelete}>Delete Node</Button>
                             <label>
                                 Title:
                                 <input
@@ -119,7 +124,6 @@ const Sidebar = ({ selectedNode, onSaveNode, onDeleteNode }) => {
                     ) : (
                         <>
                             <Button variant='secondary' className="mb-3" onClick={() => setIsEditing(true)}>Edit</Button>
-                            <Button variant='danger' className="mb-3 ms-2" onClick={onDeleteNode}>Delete Node</Button> 
                             <p><strong>Title:</strong> {selectedNode.title}</p>
                             <p><strong>Description:</strong> {selectedNode.description}</p>
                             <p><strong>NPCs:</strong></p>

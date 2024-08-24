@@ -1,7 +1,7 @@
 import "./NewCampaign.css";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, Spinner } from 'react-bootstrap';
 import { createCampaign, updateCampaign } from '../../services/campaign.service';
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -9,6 +9,7 @@ const NewCampaign = ({ editMode = false, existingCampaign = {} }) => {
     const { getAccessTokenSilently } = useAuth0();
     const [name, setName] = useState(editMode ? existingCampaign.name : '');
     const [description, setDescription] = useState(editMode ? existingCampaign.description : '');
+    const [isProcessing, setIsProcessing] = useState(false);  
     const navigate = useNavigate();
     const [isEditable, setIsEditable] = useState(!editMode); 
 
@@ -17,12 +18,13 @@ const NewCampaign = ({ editMode = false, existingCampaign = {} }) => {
         const campaignData = { name, description };
 
         try {
+            setIsProcessing(true);  
             const accessToken = await getAccessTokenSilently();
             if (editMode) {
                 const campaignId = existingCampaign.id.toString();
                 await updateCampaign(campaignId, campaignData, accessToken);
-                setName(campaignData.name)
-                setDescription(campaignData.description)
+                setName(campaignData.name);
+                setDescription(campaignData.description);
                 setIsEditable(false);
                 console.log('Campaign updated successfully');
             } else {
@@ -30,9 +32,10 @@ const NewCampaign = ({ editMode = false, existingCampaign = {} }) => {
                 console.log('Campaign created successfully');
                 navigate('/campaigns');
             }
-            
         } catch (err) {
             console.error('Failed to save campaign:', err);
+        } finally {
+            setIsProcessing(false);  
         }
     };
 
@@ -79,21 +82,33 @@ const NewCampaign = ({ editMode = false, existingCampaign = {} }) => {
                 {editMode ? (
                     isEditable ? (
                         <>
-                            <Button variant="primary" type="submit" className="mt-3">
-                                Save
+                            <Button variant="primary" type="submit" className="mt-3" disabled={isProcessing}>
+                                {isProcessing ? (
+                                    <>
+                                        <Spinner animation="border" size="sm" /> Saving...
+                                    </>
+                                ) : (
+                                    'Save'
+                                )}
                             </Button>
-                            <Button variant="secondary" className="mt-3 ms-2" onClick={handleCancelClick}>
+                            <Button variant="secondary" className="mt-3 ms-2" onClick={handleCancelClick} disabled={isProcessing}>
                                 Cancel
                             </Button>
                         </>
                     ) : (
-                        <Button variant="primary" className="mt-3" onClick={handleEditClick}>
+                        <Button variant="primary" className="mt-3" onClick={handleEditClick} disabled={isProcessing}>
                             Edit
                         </Button>
                     )
                 ) : (
-                    <Button variant="primary" type="submit" className="mt-3">
-                        Create Campaign
+                    <Button variant="primary" type="submit" className="mt-3" disabled={isProcessing}>
+                        {isProcessing ? (
+                            <>
+                                <Spinner animation="border" size="sm" /> Creating...
+                            </>
+                        ) : (
+                            'Create Campaign'
+                        )}
                     </Button>
                 )}
             </Form>
