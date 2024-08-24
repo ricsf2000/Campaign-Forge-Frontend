@@ -20,7 +20,7 @@ const Home = () => {
       <Row className="text-center my-5">
         <Col>
           <h1><strong>Welcome to Campaign Forge</strong></h1>
-          <h5>Your ultimate tool for planning and mapping out your campaign interactively using AI.</h5>
+          <h5>A tool for planning and mapping out your TRPG campaign.</h5>
           <Link to="/campaigns">
             <Button variant="primary" className="mt-3" onClick={loginWithRedirect}>Get Started</Button>
           </Link>
@@ -29,8 +29,8 @@ const Home = () => {
       <Row className="features-section ">
         <Col s={12} md={4}>
         <Container  className="feature ">
-            <h2 className="text-center"> AI Session Planning</h2>
-            <h5 className="text-center" >Leverage AI to plan your sessions and generate creative ideas for your campaign.</h5>
+            <h2 className="text-center">Campaign Notes</h2>
+            <h5 className="text-center" >Keep detailed notes on your campaign, easily accessible and organized. Record important events, character details, and plot points.</h5>
           </Container>
         </Col>
         <Col s={12} md={4}>
@@ -41,8 +41,8 @@ const Home = () => {
         </Col>
         <Col s={12} md={4}>
           <Container  className="feature">
-            <h2 className="text-center">Detail Generation</h2>
-            <h5 className="text-center">Generate information about important NPC's and locations in your campaign world by using AI.</h5>
+            <h2 className="text-center">Location Management</h2>
+            <h5 className="text-center">Place nodes on your maps to mark significant locations, events, or encounters, making it easy to track and manage your campaign's progress.</h5>
           </Container>
         </Col>
       </Row>

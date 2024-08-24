@@ -112,11 +112,12 @@ const Notes = ({ campaignId }) => {
                             tinycomments_mode: 'embedded',
                             tinycomments_author: 'Author name',
                             mergetags_list: [
-                            { value: 'First.Name', title: 'First Name' },
-                            { value: 'Email', title: 'Email' },
+                                { value: 'First.Name', title: 'First Name' },
+                                { value: 'Email', title: 'Email' },
                             ],
                         }}
-                        onEditorChange={setContent}
+                        value={content} 
+                        onEditorChange={setContent} 
                     />
                 </>
             ) : (
