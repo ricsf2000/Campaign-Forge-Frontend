@@ -65,7 +65,7 @@ const Sidebar = ({ selectedNode, onSaveNode, onDeleteNode }) => {
                         <>
                             <Button variant='secondary' className="mb-3 me-3" onClick={handleSave}>Save</Button>
                             <Button variant='secondary' className="mb-3 me-3" onClick={() => setIsEditing(false)}>Cancel</Button>
-                            <Button variant='danger' className="mb-3" onClick={onDeleteNode}>Delete Node</Button> {/* Add delete button here */}
+                            <Button variant='danger' className="mb-3" onClick={onDeleteNode}>Delete Node</Button>
                             <label>
                                 Title:
                                 <input
