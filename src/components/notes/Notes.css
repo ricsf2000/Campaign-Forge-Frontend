@@ -1,12 +1,19 @@
 .noteslist {
-    background-color: rgb(201, 201, 201) !important;
-    color: rgb(0, 0, 0) !important;
-    border: none !important;
+    background-color: transparent !important;
+    color: rgba(255, 255, 255, 0.676) !important;
+    padding: 5px !important;
+    overflow: hidden;
+    max-height: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: relative;
 }
 
 .noteslist.active,
 .noteslist:focus {
-    background-color: rgb(126, 126, 126) !important;
     border-color: white !important;
-    color: rgb(0, 0, 0) !important;
+    border-top: none;
+    color: rgb(255, 255, 255) !important;
+    font-weight: 800 !important;
 }
+
